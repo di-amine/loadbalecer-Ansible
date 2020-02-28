@@ -6,7 +6,7 @@
     mysql_root_password: ASuperSecurePassword
   ## Tasks ##
   tasks:
-  - name: Get YUM repository for MySQL
+  - name: Get YUM repository for Mysql
     get_url:
       url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
       dest: /tmp/mysql57-community-release-el7-7.noarch.rpm
