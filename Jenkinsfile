@@ -29,7 +29,7 @@ pipeline {
         stage('provisioning machine webserver (install nginx)') {
             steps {
                 echo "nstall htop nginx"
-                sh "ansible-playbook -i hosts.ini installnginx.yml"
+                sh "ansible-playbook -i hosts.ini site.yml"
             }
         }
         
