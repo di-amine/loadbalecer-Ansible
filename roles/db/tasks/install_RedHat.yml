@@ -9,5 +9,10 @@
 
 - name: install mysql server
   yum: 
-    name: mariadb-server mariadb
+    name: mariadb-server 
+    state: present
+
+- name: install mysql server
+  yum: 
+    name: mariadb
     state: present
