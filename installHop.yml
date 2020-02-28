@@ -1,0 +1,24 @@
+---
+- hosts: all
+  remote_user: vagrant
+  sudo: yes
+  tasks:
+
+    - name: creat yhe devops group
+      group:
+        name: devops
+        state: present
+    - name: create devops user with admin privileges
+      user:
+        name: devops
+        comment: "Devops User"
+        uid: 2001
+        group: devops
+    - name: update
+      yum:
+        name: "*"
+        state: present
+    - name: install htop package
+      yum:
+        name: htop
+        state: present

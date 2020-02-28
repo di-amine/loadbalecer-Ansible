@@ -1,0 +1,30 @@
+- hosts: webserver
+  user: vagrant
+  sudo: yes
+  tasks:
+
+    - name: Add epel-release repo
+      yum:
+        name: epel-release
+        state: present
+
+    - name: Install nginx
+      yum:
+        name: nginx
+        state: present
+
+    # - name: Configuration Nginx
+    #   copy:
+    #     src: nginx.conf
+    #     dest: /etc/nginx/nginx.conf
+    #     owner: vagrant
+    #     group: vagrant
+    #     mode: 0664
+    #     backup: yes
+
+    - name: Start NGiNX
+      service:
+        name: nginx
+        enabled: yes
+        daemon_reload: yes
+        state: started
