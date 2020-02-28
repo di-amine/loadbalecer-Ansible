@@ -23,7 +23,7 @@ pipeline {
         stage('provisioning machine') {
             steps {
                 echo "create groupe et install htop"
-                sh "ansible-playbook -i hosts installHop.yml"
+                sh "ansible-playbook -i hosts.ini installHop.yml"
             }
         }
         stage('provisioning machine webserver (install nginx)') {
