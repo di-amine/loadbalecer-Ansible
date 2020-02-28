@@ -8,7 +8,7 @@
   tasks:
   - name: Get YUM repository for MySQL
     get_url:
-      url: http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
+      url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
       dest: /tmp/mysql57-community-release-el7-7.noarch.rpm
   - name: Install YUM repository for MySQL
     shell: /bin/rpm -Uvh /tmp/mysql57-community-release-el7-7.noarch.rpm
