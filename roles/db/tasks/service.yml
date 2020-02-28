@@ -1,6 +1,4 @@
-- name: Start NGiNX
-  service:
-    name: nginx
-    enabled: yes
-    daemon_reload: yes
-    state: started
+---
+# filename: roles/mysql/tasks/service.yml
+ - name: start mysql server
+   service: name="{{ mysql_service }}" state=started
