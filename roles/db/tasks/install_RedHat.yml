@@ -2,8 +2,9 @@
 # filename: roles/mysql/tasks/install_RedHat.yml
 
 - name: links mysql 
-  command: yum localinstall https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-   
+  yum: 
+    localinstall: "https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm"
+
 - name: install mysql server
   yum: 
     name: "{{ mysql_pkg }}"  
