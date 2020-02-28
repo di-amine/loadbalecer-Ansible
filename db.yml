@@ -9,10 +9,10 @@
   - name: Get YUM repository for Mysql
     get_url:
       url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-      dest: /tmp/mysql57-community-release-el7-7.noarch.rpm
+      dest: /tmp/mysql57-community-release-el7-11.noarch.rpm
   - name: Install the MySQL repo.
     yum:
-      name: http://repo.mysql.com/mysql57-community-release-el7-9.noarch.rpm
+      name: /tmp/mysql57-community-release-el7-11.noarch.rpm
       state: present
   - name: Launch MySQL service
     service:
