@@ -1,0 +1,6 @@
+- name: Start NGiNX
+  service:
+    name: nginx
+    enabled: yes
+    daemon_reload: yes
+    state: started
