@@ -19,7 +19,7 @@
     yum:
       name: "{{ mysqlPackage }}"
       state: present
-      
+
   - name: Launch MySQL service
     service:
       name: mysqld
@@ -35,17 +35,24 @@
   - name: Get temporary MySQL root password
     shell: grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}'
     register: mysql_root_temp_password
+
   - name: Set the MySQL root password
     shell: mysqladmin -u root --password="{{ mysql_root_temp_password.stdout }}" password "{{ mysql_root_password }}"
     register: mysql_admin_root_password_result
     failed_when: "'(using password: NO)' in mysql_admin_root_password_result.stderr"
+
   - name: Tune MySQL configuration
     template:
-      src: ./resources/my.cnf
+      # src: ./resources/my.cnf
       dest: /etc/my.cnf
+      content: |
+        [client]
+        user=root
+        password={{ mysql_root_password }}
       mode: 0644
     notify:
       - restart mysqld
+
   - name: Create my datatable
     mysql_db:
       login_user: root
@@ -53,6 +60,7 @@
       name: MY_DATATABLE
       encoding: utf8
       collation: utf8_bin
+
   - name: Create MY_DBA user in MySQL and grant privileges
     mysql_user:
       login_user: root
