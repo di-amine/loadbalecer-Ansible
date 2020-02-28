@@ -1,0 +1,5 @@
+- hosts: db
+  user: vagrant
+  sudo: yes
+  roles:
+    - db
