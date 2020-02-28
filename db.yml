@@ -10,13 +10,9 @@
     get_url:
       url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
       dest: /tmp/mysql57-community-release-el7-7.noarch.rpm
-  - name: Install YUM repository for MySQL
-    shell: /bin/rpm -Uvh /tmp/mysql57-community-release-el7-11.noarch.rpm
-    register: yum_repo_resturn
-    failed_when: "'conflict' in yum_repo_return.stderr"
-  - name: Install MySQL community server
+  - name: Install the MySQL repo.
     yum:
-      name: mysql-community-server
+      name: http://repo.mysql.com/mysql57-community-release-el7-9.noarch.rpm
       state: present
   - name: Launch MySQL service
     service:
