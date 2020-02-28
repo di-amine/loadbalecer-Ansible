@@ -7,4 +7,4 @@ mysql_pkg: mysql-server
 mysql_pid: /var/run/mysqld/mysqld.pid
 mysql_socket: /var/run/mysqld/mysqld.sock
 mysql_cnfpath: /etc/mysql/my.cnf
-mysql_service: mysql
+mysql_service: mysql-community-server
