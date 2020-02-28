@@ -4,6 +4,7 @@
   become: yes
   vars:
     mysql_root_password: ASuperSecurePassword
+    mysqlPackage: mysql-community-server.x86_64
   ## Tasks ##
   tasks:
   - name: Get YUM repository for Mysql
@@ -12,7 +13,7 @@
       dest: /tmp/mysql57-community-release-el7-11.noarch.rpm
   - name: Install the MySQL repo.
     yum:
-      name: /tmp/mysql57-community-release-el7-11.noarch.rpm
+      name: "{{ mysqlPackage }}"
       state: present
   - name: Launch MySQL service
     service:
