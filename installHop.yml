@@ -18,6 +18,12 @@
       yum:
         name: "*"
         state: present
+    
+    - name: Add epel-release repo
+      yum:
+        name: epel-release
+        state: present
+        
     - name: install htop package
       yum:
         name: htop
