@@ -3,6 +3,10 @@
 # Any manual updates will be overwritten
 # filename: roles/mysql/templates/my.cnf.j2 
 
+[client]
+user={{ mysql_root_username }}
+password={{ mysql_root_password }}
+
 [mysqld]
 user		 = {{ mysql_user | default("mysql") }}
 pid-file	 = {{ mysql_pid }}

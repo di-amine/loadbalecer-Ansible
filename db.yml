@@ -3,7 +3,21 @@
   ## Variables ##
   become: yes
   vars:
+    mysql_root_username: root
     mysql_root_password: ASuperSecurePassword
+
+    mysql_user: mysql
+    mysql_port: 3306
+    mysql_datadir: /var/lib/mysql
+    mysql_bind: 127.0.0.1
+    mysql_pkg: mysql-server
+    mysql_pid: /var/run/mysqld/mysqld.pid
+    mysql_socket: /var/run/mysqld/mysqld.sock
+    mysql_cnfpath: /etc/mysql/my.cnf
+    mysql_service: mysql-community-server
+
+
+
     mysqlPackage: mysql-community-server.x86_64
   ## Tasks ##
   tasks:
@@ -32,6 +46,7 @@
     with_items:
       - gcc-c++
       - MySQL-python
+      
   - name: Get temporary MySQL root password
     shell: grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}'
     register: mysql_root_temp_password
@@ -43,12 +58,8 @@
 
   - name: Tune MySQL configuration
     template:
-      # src: ./resources/my.cnf
+      src: /home/stagiaire/Desktop/ansible/ansible_playbook/roles/db/templates/my.cnf.j2
       dest: /etc/my.cnf
-      content: |
-        [client]
-        user=root
-        password={{ mysql_root_password }}
       mode: 0644
     notify:
       - restart mysqld
