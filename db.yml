@@ -46,7 +46,7 @@
     with_items:
       - gcc-c++
       - MySQL-python
-      
+
   - name: Get temporary MySQL root password
     shell: grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}'
     register: mysql_root_temp_password
@@ -58,7 +58,7 @@
 
   - name: Tune MySQL configuration
     template:
-      src: /home/stagiaire/Desktop/ansible/ansible_playbook/roles/db/templates/my.cnf.j2
+      src: roles/db/templates/my.cnf.j2
       dest: /etc/my.cnf
       mode: 0644
     notify:
