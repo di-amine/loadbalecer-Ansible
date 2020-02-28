@@ -7,10 +7,10 @@
     mysqlPackage: mysql-community-server.x86_64
   ## Tasks ##
   tasks:
-  - name: Get YUM repository for Mysql
-    get_url:
-      url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-      dest: /tmp/mysql57-community-release-el7-11.noarch.rpm
+  # - name: Get YUM repository for Mysql
+  #   get_url:
+  #     url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+  #     dest: /tmp/mysql57-community-release-el7-11.noarch.rpm
   - name: Install the MySQL repo.
     yum:
       name: "{{ mysqlPackage }}"
