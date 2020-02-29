@@ -1,6 +1,7 @@
 ---
 - hosts: db
   ## Variables ##
+  become_user: vagrant
   sudo: yes
   vars:
     mysql_root_username: root
@@ -63,13 +64,13 @@
   #     name: mysqld
   #     state: stoped
 
-  - name: Tune MySQL configuration
-    template:
-      src: roles/db/templates/my.cnf.j2
-      dest: /root/.my.cnf
-      mode: 0644
-    notify:
-      - restart mysqld
+  # - name: Tune MySQL configuration
+  #   template:
+  #     src: roles/db/templates/my.cnf.j2
+  #     dest: /root/.my.cnf
+  #     mode: 0644
+  #   notify:
+  #     - restart mysqld
 
   
   - name: Set the mysql root password 

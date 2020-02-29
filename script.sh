@@ -3,17 +3,17 @@
 # read passwd
 passwd= "root"
 
-echo "Stop Service Mysql"
+# echo "Stop Service Mysql"
 
-sudo systemctl stop mysqld
+# sudo systemctl stop mysqld
 
 echo "Copy file from /etc/my.cnf"
 
 sudo  sed -i -e '$a\skip-grant-tables' /etc/my.cnf
 
-echo "Start service Mysql"
+echo "restart service Mysql"
 
-sudo systemctl start mysqld
+sudo systemctl restart mysqld
 
 echo "Change password root"
 
