@@ -57,10 +57,10 @@
   #   failed_when: "'(using password: NO)' in mysql_admin_root_password_result.stderr"
 
 
-  - name: stop MySQL service
-    service:
-      name: mysqld
-      state: stoped
+  # - name: stop MySQL service
+  #   service:
+  #     name: mysqld
+  #     state: stoped
 
   - name: Tune MySQL configuration
     template:
@@ -68,7 +68,7 @@
       dest: /root/.my.cnf
       mode: 0644
     notify:
-      - start mysqld
+      - restart mysqld
 
   
   - name: Set the mysql root password 
