@@ -2,7 +2,7 @@
 - hosts: db
   ## Variables ##
   become_user: vagrant
-  sudo: yes
+  # sudo: yes
   vars:
     mysql_root_username: root
     mysql_root_password: root
