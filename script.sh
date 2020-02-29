@@ -1,6 +1,6 @@
 #! /bin/bash
-echo "make new password mysql:"
-read passwd
+# echo "make new password mysql:"
+# read passwd
 
 echo "Stop Service Mysql"
 
