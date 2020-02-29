@@ -1,6 +1,7 @@
 #! /bin/bash
 # echo "make new password mysql:"
 # read passwd
+passwd= "root"
 
 echo "Stop Service Mysql"
 
