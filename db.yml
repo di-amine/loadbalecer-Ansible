@@ -104,7 +104,6 @@
       login_user: root
       login_password: "{{ mysql_root_password }}"
       name: MY_DATATABLE
-      host_all: yes
       encoding: utf8
       collation: utf8_bin
 
