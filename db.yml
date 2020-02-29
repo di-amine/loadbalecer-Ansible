@@ -109,12 +109,17 @@
   - name: Create MY_DBA user in MySQL and grant privileges
     mysql_user:
       login_user: root
-      login_password: "{{ mysql_root_password }}"
+      login_password: root
       login_unix_socket: /var/run/mysqld/mysqld.sock
-      user: wp
-      password: passwp
-      host: '192.168.60.7'
+      user: rootDb123  
+      password: rootPasswd123@.++++-
+      host: "{{item}}"
       priv: 'MY_DATATABLE.*:ALL'
+    with_items:
+            - "127.0.0.1"
+            - "192.168.60.6"
+            - "192.168.60.7"
+
 
 
 
