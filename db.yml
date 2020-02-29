@@ -72,7 +72,7 @@
 
   
   - name: Set the mysql root password 
-    shell: script.sh
+    shell: script.sh >> somelog.txt
 
 
   # - name: Ensure mysql root password is updated for all root accounts
