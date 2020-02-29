@@ -27,6 +27,7 @@
     get_url:
       url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
       dest: /tmp/mysql57-community-release-el7-11.noarch.rpm
+    become: yes
 
   - name: "Install Local RPMs"
     shell: yum localinstall -y /tmp/mysql57-community-release-el7-11.noarch.rpm
