@@ -72,19 +72,7 @@
 
   
   - name: Set the mysql root password 
-    shell: |
-      
-      mysql -h 192.168.60.6 -u root -e \ "FLUSH PRIVILEGES; ALTER USER 'root'@'localhost' IDENTIFIED BY 'root'; exit"
-
-      exit 0
-    args:
-      executable: /usr/bin/mysql
-    delegate_to: localhost
-
-  - name: modifier file my.cnf
-    shell: sed -i '$d' /root/.my.cnf
-    notify:
-      - restart mysqld
+    shell: script.sh
 
 
   # - name: Ensure mysql root password is updated for all root accounts
