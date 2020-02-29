@@ -30,11 +30,13 @@
 
   - name: "Install Local RPMs"
     shell: yum localinstall -y /tmp/mysql57-community-release-el7-11.noarch.rpm
+    become: yes
 
   - name: Install the MySQL repo.
     yum:
       name: "{{ mysqlPackage }}"
       state: present
+      become: yes
 
   - name: Launch MySQL service
     service:
@@ -45,6 +47,7 @@
     yum:
       name: "{{item}}"
       state: present
+    become: yes
     with_items:
       - gcc-c++
       - MySQL-python
