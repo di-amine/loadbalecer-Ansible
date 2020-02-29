@@ -110,10 +110,14 @@
     mysql_user:
       login_user: root
       login_password: "{{ mysql_root_password }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
       user: wp
       password: passwp
       host: '192.168.60.7'
       priv: 'MY_DATATABLE.*:ALL'
+
+
+
   ## Handlers ##
   handlers:
     - name: restart mysqld
