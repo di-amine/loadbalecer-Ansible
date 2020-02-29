@@ -1,10 +1,11 @@
 ---
 - hosts: db
   ## Variables ##
+  become: vagrant
   sudo: yes
   vars:
     mysql_root_username: root
-    mysql_root_password: ASuperSecurePassword
+    mysql_root_password: root
 
     mysql_user: mysql
     mysql_port: 3306
@@ -13,7 +14,7 @@
     mysql_pkg: mysql-server
     mysql_pid: /var/run/mysqld/mysqld.pid
     mysql_socket: /var/run/mysqld/mysqld.sock
-    mysql_cnfpath: /etc/mysql/my.cnf
+    mysql_cnfpath: /etc/my.cnf
     mysql_service: mysql-community-server
 
 
@@ -47,28 +48,65 @@
       - gcc-c++
       - MySQL-python
 
-  - name: Get temporary MySQL root password
-    shell: grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}'
-    register: mysql_root_temp_password
+  # - name: Get temporary MySQL root password
+  #   shell: grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}'
+  #   register: mysql_root_temp_password
 
-  - name: Set the MySQL root password
-    shell: mysqladmin -u root --password="{{ mysql_root_temp_password.stdout }}" password "{{ mysql_root_password }}"
-    register: mysql_admin_root_password_result
-    failed_when: "'(using password: NO)' in mysql_admin_root_password_result.stderr"
+  # - name: Set the MySQL root password
+  #   shell: mysqladmin -u root --password="{{ mysql_root_temp_password.stdout }}" password "{{ mysql_root_password }}"
+  #   register: mysql_admin_root_password_result
+  #   failed_when: "'(using password: NO)' in mysql_admin_root_password_result.stderr"
+
+
+  - name: stop MySQL service
+    service:
+      name: mysqld
+      state: stoped
 
   - name: Tune MySQL configuration
     template:
       src: roles/db/templates/my.cnf.j2
-      dest: /etc/my.cnf
+      dest: /root/.my.cnf
       mode: 0644
     notify:
+      - start mysqld
+
+  
+  - name: Set the mysql root password 
+    shell: |
+      
+      mysql -h 127.0.0.1 -u root -e \ "FLUSH PRIVILEGES; ALTER USER 'root'@'localhost' IDENTIFIED BY 'root'; exit"
+
+      exit 0
+    args:
+      executable: /usr/bin/mysql
+    delegate_to: localhost
+
+  - name: modifier file my.cnf
+    shell: sed -i '$d' /root/.my.cnf
+    notify:
       - restart mysqld
+
+
+  # - name: Ensure mysql root password is updated for all root accounts
+  #   mysql_user:
+  #     name: root
+  #     host: "{{ item }}"
+  #     login_unix_socket: /var/run/mysqld/mysqld.sock
+  #     password: "{{ mysql_root_password }}"
+  #     priv: '*.*:ALL,GRANT'
+  #     check_implicit_admin: true
+  #   loop: 127.0.0.1
+  #   become: yes
+  #   notify: Restart MySQL
+
 
   - name: Create my datatable
     mysql_db:
       login_user: root
       login_password: "{{ mysql_root_password }}"
       name: MY_DATATABLE
+      host_all: yes
       encoding: utf8
       collation: utf8_bin
 
@@ -85,4 +123,11 @@
     - name: restart mysqld
       service:
         name: mysqld
-        state: restarted
+        state: restarted  
+        
+    - name: start mysqld
+      service:
+        name: mysqld
+        state: started
+
+    
