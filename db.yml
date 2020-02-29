@@ -79,8 +79,6 @@
       src: script.sh
       dest: /tmp/script.sh
       mode: 0644
-
-
   
   - name: Set the mysql root password 
     shell: sh /tmp/script.sh 
@@ -112,9 +110,9 @@
     mysql_user:
       login_user: root
       login_password: "{{ mysql_root_password }}"
-      user: MY_DBA
-      password: AnOtherSuperSecurePassword
-      host: '%'
+      user: wp
+      password: passwp
+      host: '192.168.60.7'
       priv: 'MY_DATATABLE.*:ALL'
   ## Handlers ##
   handlers:
