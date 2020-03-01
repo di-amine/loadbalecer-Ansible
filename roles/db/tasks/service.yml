@@ -1,8 +1,7 @@
 ---
 # filename: roles/mysql/tasks/service.yml
-- name: Start mysql
-  service:
-    name: mariadb
-    enabled: yes
-    daemon_reload: yes
-    state: started
+  - name: Launch MySQL service
+    service:
+      name: mysqld
+      state: started
+      enabled: yes

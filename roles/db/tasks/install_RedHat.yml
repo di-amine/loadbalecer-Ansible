@@ -7,12 +7,26 @@
 #     dest: /tmp/mysql57-community-release-el7-11.noarch.rpm
 #     mode: '0644'
 
-- name: install mysql server
-  yum: 
-    name: mariadb-server 
-    state: present
+  - name: Get YUM repository for Mysql
+    get_url:
+      url: http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+      dest: /tmp/mysql57-community-release-el7-11.noarch.rpm
+    become: yes
 
-- name: install mysql server
-  yum: 
-    name: mariadb
-    state: present
+  - name: "Install Local RPMs"
+    shell: yum localinstall -y /tmp/mysql57-community-release-el7-11.noarch.rpm
+    become: yes
+
+  - name: Install the MySQL repo.
+    yum:
+      name: "{{ mysqlPackage }}"
+      state: present
+
+
+  - name: Install required python MySQLdb lib to create databases and users
+    yum:
+      name: "{{item}}"
+      state: present
+    with_items:
+      - gcc-c++
+      - MySQL-python
