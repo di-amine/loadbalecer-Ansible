@@ -4,7 +4,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # General Vagrant VM configuration.
     
     # All VMs will run under centos7 exploitation system
-    config.vm.box = "centos/7"
+    config.vm.box = "geerlingguy/centos7"
 
     # If true, Vagrant will automatically insert a keypair
     # to use for SSH, replacing Vagrant's default insecure key 

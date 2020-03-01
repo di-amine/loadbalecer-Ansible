@@ -1,1 +1,1 @@
-{"name":"centos/7","version":"1905.1","provider":"virtualbox","directory":"boxes/centos-VAGRANTSLASH-7/1905.1/virtualbox"}
+{"name":"geerlingguy/centos7","version":"1.2.20","provider":"virtualbox","directory":"boxes/geerlingguy-VAGRANTSLASH-centos7/1.2.20/virtualbox"}

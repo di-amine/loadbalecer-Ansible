@@ -1,5 +1,13 @@
 ---
 # filename: roles/mysql/tasks/configure.yml
+
+  - name: Copy file configuration 
+    template: 
+      src: templates/my.cnf.j2
+      dest: /etc/my.cnf
+      force: yes
+      mode: 0644 
+
   - name: copy script file
     template:
       src: files/script.sh
@@ -10,7 +18,7 @@
   - name: Set the mysql root password 
     shell: sh /tmp/script.sh 
     environment:
-      PASSMYSQL: '{{passwd}}'
+      PASSMYSQL: '{{mysql_root_password}}'
     register: passmysql
 
   - debug: 
@@ -18,22 +26,20 @@
 
   - name: Create my datatable
     mysql_db:
-      login_unix_socket: /var/run/mysqld/mysqld.sock
-      login_user: root
-      login_password: "{{ mysql_root_password }}"
-      name: MY_DATATABLE
+      login_user: "{{mysql_root_username}}"
+      login_password: '{{mysql_root_password}}'
+      name: '{{database}}'
       encoding: utf8
       collation: utf8_bin
 
   - name: Create MY_DBA user in MySQL and grant privileges
     mysql_user:
-      login_user: root
-      login_password: root
-      login_unix_socket: /var/run/mysqld/mysqld.sock
-      user: rootDb123  
-      password: rootPasswd123@.++++-
+      login_user: "{{mysql_root_username}}"
+      login_password: '{{mysql_root_password}}'
+      user: "{{dbuser}}"  
+      password: "{{dbpasswd}}"
       host: "{{item}}"
-      priv: 'MY_DATATABLE.*:ALL'
+      priv: '{{database}}.*:ALL'
     with_items:
             - "127.0.0.1"
             - "192.168.60.6"

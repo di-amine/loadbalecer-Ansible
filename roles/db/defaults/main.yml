@@ -8,7 +8,10 @@
     mysql_pkg: mysql-server
     mysql_pid: /var/run/mysqld/mysqld.pid
     mysql_socket: /var/run/mysqld/mysqld.sock
-    mysql_cnfpath: /etc/my.cnf
+    mysql_cnfpath: /etc/mysql/my.cnf
     mysql_service: mysql-community-server
     passwd: root
     mysqlPackage: mysql-community-server.x86_64
+    database: worldpress
+    dbuser: worldpress
+    dbpasswd: Worldpress123@

@@ -23,6 +23,13 @@
       state: present
 
 
+  - name: Launch MySQL service
+    service:
+      name: mysqld
+      state: started
+      enabled: yes
+
+
   - name: Install required python MySQLdb lib to create databases and users
     yum:
       name: "{{item}}"
